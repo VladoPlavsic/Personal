@@ -6,9 +6,9 @@ For server side we used uvicorn.
 ```
 
 ```
-2. navigate to root folder (the one containing docker-compose.yaml)<br>
+2. navigate to root folder (the one containing docker-compose.yaml)
 ```
 
 ```
-3. run following command: <h4><code>docker-compose up --build</code></h4>
+3. run following command: compose up --build
 ```
