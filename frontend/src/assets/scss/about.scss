@@ -1,0 +1,159 @@
+#header.about{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+// Home page login
+#header.about > #login.about {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    height: auto;
+    align-items: center;
+}
+
+// Login Logo
+#header.about > #login.about > #inner-login-div > .logo{
+    padding-top: 10px;
+    padding-right: 10px;
+    height: fit-content;
+    font-family: "ShadowsIntoLight", cursive;
+    align-content: center;
+    font-size: 50px;
+    text-shadow: 5px 5px 20px darkblue;
+    border-radius: 0px 30px 0px 30px;
+    border: 3px dotted black;
+    overflow: hidden;
+    transition: border-radius 0.3s, text-shadow 0.6s;
+
+}
+
+#header.about > #login.about > #inner-login-div > .logo:hover{
+    transition: border-radius 0.3s, text-shadow 0.6s;
+    border-radius: 30px 0px 30px 0px;
+    box-shadow: 1px 1px 20px red;
+}
+
+// Login Buttons
+#header.about > #login.about > #inner-login-div >  .buttons{
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#header.about > #login.about  > #inner-login-div > .buttons div{
+    margin: 5px;
+}
+
+#header.about > #login.about  > #inner-login-div > .buttons a{
+    box-shadow: 1px 1px 50px gray;
+}
+
+#header.about > #login.about  > #inner-login-div > .buttons a:hover{
+    box-shadow: 1px 1px 50px green;
+}
+
+
+
+// inner div for login inherit
+#header.about > #login.about > #inner-login-div {
+    all: inherit;
+}
+
+
+
+// About body
+#body.about {
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: 'ShadowIntoLight', cursive;
+}
+
+// Scroll like design
+#body.about > .scroll{
+    // content alignment
+    margin-left: 3vw;
+    margin-right: 3vw;
+    margin-bottom: 10px;
+    // borders
+    border-radius: 10px;
+    border-bottom-left-radius: 50px;
+    background-image: repeating-radial-gradient(circle, lightyellow, #e8e4c9);
+}
+
+#body.about > .scroll:hover{
+    transition: 3s;
+    box-shadow: 1px 1px 100px gray;
+}
+
+// Inner about (text containers)
+#body.about > .scroll > .about{
+    margin-top: 50px;
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+    color: lightyellow;
+    transition: 1s;
+    text-shadow: 2px 2px 10px #e8e4c9;
+}
+
+#body.about > .scroll > .about:hover{
+    #title{
+        transition: 2s;
+    }
+    #content{
+        transition: 6s;
+    }
+    color: black;
+    text-shadow: 2px 2px 10px black;
+}
+
+
+#body.about > .scroll > .about.page{
+
+    
+
+}
+
+#body.about > .scroll > .about.me{
+
+
+}
+
+#body.about > .scroll > .about  div{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#body.about > .scroll > .about > #title{
+    font-size: 50px;
+    text-align: center;
+}
+
+#body.about > .scroll > .about > #content{
+
+    font-size: 25px;
+    padding-bottom: 30px;
+
+}
+
+// Adjust for small screens
+@media only screen and (max-width: 500px) {
+    #header.about{ 
+        margin-top: 5vh;
+        flex-direction: column;
+    }
+    #header.about > #login.about { flex-direction: column; }
+    #header.about > #login.about > #inner-login-div > .buttons { flex-direction: column; }
+    #body.about > .scroll > .about{
+        color: black; 
+        text-shadow: 1px 1px 5px black;
+    }
+
+    #body.about {flex-direction: column;}
+}

@@ -1,0 +1,84 @@
+.box {
+    font-family: 'ShadowIntoLight', cursive;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20vw;
+    padding: 2.5rem;
+    box-sizing: border-box;
+    background: rgba(188, 224, 26, 0.6);
+    box-shadow: 1px 1px 20px black;
+    transition: 0.6s;
+    border-radius: 0.625rem;
+}
+
+.box:hover{
+    transition: 0.6s;
+    box-shadow: 1px 1px 20px gray;
+}
+
+.box h2 {
+    margin: 0 0 1.875rem;
+    font-size: 50px;
+    padding: 0;
+    text-align: center;
+}
+
+.box .inputBox {
+    position: relative;
+}
+
+.box .inputBox input {
+    width: 100%;
+    padding: 0.625rem 0;
+    font-size: 20px;
+    letter-spacing: 0.062rem;
+    margin-bottom: 1.875rem;
+    border: none;
+    border-bottom: 0.065rem solid black;
+    outline: none;
+    background: transparent;
+}
+
+.box .inputBox label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.625rem 0;
+    font-size: 20px;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.box .inputBox input:focus ~ label,
+.box .inputBox input:valid ~ label,
+.box .inputBox input:not([value=""]) ~ label {
+    top: -1.125rem;
+    left: 0;
+    color: black;
+    font-size: 15px;
+}
+
+.box .inputBox input:required {
+    box-shadow: none;
+}
+
+#sign-in-div{
+    width: fit-content;
+    height: fit-content;
+}
+
+// Adjust for small screens
+@media only screen and (max-width: 1300px) {
+    .box { width: 40vw;}
+}
+
+@media only screen and (max-width: 500px) {
+    .box { width: 80vw;}
+}
+
+@media only screen and (max-height: 400px) {
+    .box h2 {font-size: 30px}
+}
+

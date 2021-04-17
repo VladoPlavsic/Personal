@@ -1,0 +1,108 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: lightyellow;
+}
+
+#header.home{
+    display: flex;
+    flex-direction: column;
+}
+
+// Home page login
+#header.home > #login.home {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    height: auto;
+    margin-top: 100px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+// Login Buttons
+#header.home > #login.home > #inner-login-div >  .buttons{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#header.home > #login.home  > #inner-login-div > .buttons div{
+    margin: 5px;
+}
+
+#header.home > #login.home  > #inner-login-div > .buttons a{
+    box-shadow: 1px 1px 50px green;
+}
+
+// Login Logo
+#header.home > #login.home > #inner-login-div > .logo{
+    padding-top: 10px;
+    padding-right: 10px;
+    font-family: "ShadowsIntoLight", cursive;
+    align-content: center;
+    font-size: 50px;
+    text-shadow: 5px 5px 20px deepskyblue;
+    border-radius: 0px 30px 0px 30px;
+    border: 3px dotted black;
+    overflow: hidden;
+    transition: border-radius 0.3s, text-shadow 0.6s;
+
+}
+
+#header.home > #login.home > #inner-login-div > .logo:hover{
+
+    transition: border-radius 0.3s, text-shadow 0.6s;
+    border-radius: 30px 0px 30px 0px;
+    text-shadow: 1px 1px 20px green;
+}
+
+// inner div for login inherit
+#header.home > #login.home > #inner-login-div {
+    all: inherit;
+}
+
+// About, Contact, Articles
+#header.home > #content-picker {
+    margin-top: 15px;
+    align-self: center;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 1px 1px 5px black;
+}
+
+#header.home > #content-picker .item{
+    display: flex;
+    align-content: center;
+    margin: 15px;
+    margin-bottom: 5px;
+    font-size: 40px;
+    padding-bottom: 10px;
+    font-family: "ShadowsIntoLight", cursive;
+    text-shadow: 5px 5px 20px red;
+    transition: font-size 0.3s, text-shadow 0.6s;
+}
+
+#header.home > #content-picker .item:hover{
+    transition: font-size 0.75s, text-shadow 0.6s;
+    font-size: 60px;
+    text-shadow: 5px 5px 20px deepskyblue;
+}
+
+#header.home > #content-picker .item:active{
+    color: red;
+    text-shadow: 5px 5px 20px black;
+}
+
+// Adjust for small screens
+@media only screen and (max-width: 500px) {
+    #header.home > #login.home{ 
+        margin-top: 5vh;
+    }
+
+}
+
+
