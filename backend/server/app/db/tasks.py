@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from databases import Database
 from app.core.config import DATABASE_URL
+import os
 import logging
 
 logger = logging.getLogger(__name__)
@@ -11,6 +12,8 @@ async def connect_to_db(app: FastAPI) -> None:
     try:
         await database.connect()
         app.state._db = database
+        # run migrations
+        os.system("alembic upgrade head")
     except Exception as e:
         logger.warn("--- DB CONNECTION ERROR ---")
         logger.warn(e)
