@@ -23,8 +23,10 @@
 </template>
 
 <script>
-import SignButton from "@/components/buttons/SignButton.vue"
+import SignButton from "@/components/buttons/CustomButton.vue"
 import axios from 'axios'
+
+import swal from 'sweetalert'
 
 export default {
     name: 'SignUp',
@@ -66,7 +68,15 @@ export default {
                     password: password
                 }
             }).then(function (response){
-                console.log(response.data);
+
+                swal({
+                    title: "Success!",
+                    text: "Congrats! You've become a member of most useles site in site history!",
+                    icon: "success",
+                }).then(() => { 
+                    window.location.href = '/';
+                });
+
             }).catch(function (error){
                 if(error.response){
                     // Request made and server responsed

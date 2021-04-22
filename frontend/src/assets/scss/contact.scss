@@ -1,0 +1,264 @@
+// Header
+#header.contact{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+// Home page login
+#header.contact > #login.contact {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    height: auto;
+    align-items: center;
+}
+
+// Login Logo
+#header.contact > #login.contact > #inner-login-div > .logo{
+    padding-top: 10px;
+    padding-right: 10px;
+    height: fit-content;
+    font-family: "ShadowsIntoLight", cursive;
+    align-content: center;
+    font-size: 50px;
+    text-shadow: 5px 5px 20px darkblue;
+    border-radius: 0px 30px 0px 30px;
+    border: 3px solid black;
+    overflow: hidden;
+    transition: border-radius 0.3s, text-shadow 0.6s;
+
+}
+
+#header.contact > #login.contact > #inner-login-div > .logo:hover{
+    transition: border-radius 0.3s, text-shadow 0.6s;
+    border-radius: 30px 0px 30px 0px;
+    box-shadow: 1px 1px 20px red;
+}
+
+// Login Buttons
+#header.contact > #login.contact > #inner-login-div >  .buttons{
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#header.contact > #login.contact  > #inner-login-div > .buttons div{
+    margin: 5px;
+}
+
+#header.contact > #login.contact  > #inner-login-div > .buttons a{
+    box-shadow: 1px 1px 50px gray;
+}
+
+#header.contact > #login.contact  > #inner-login-div > .buttons a:hover{
+    box-shadow: 1px 1px 50px green;
+}
+
+
+
+#header.contact > #login.contact  > #inner-login-div > .buttons div div div{
+    margin-left: -40px;
+}
+
+
+#header.contact > #login.contact  > #inner-login-div > .buttons div div{
+    margin-left: 40px;
+}
+
+#header.contact > #login.contact  > #inner-login-div > .buttons div div span{
+    margin-right: 45px;
+}
+
+#header.contact > #login.contact  > #inner-login-div > .buttons div:hover{
+    div span{
+        margin-right: 29px;
+    }
+}
+
+
+// inner div for login inherit
+#header.contact > #login.contact > #inner-login-div {
+    all: inherit;
+}
+
+// Body
+#body > ul{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+#body > ul li{
+
+    list-style: none;
+    min-width: 100px;
+    min-height: 100px;
+
+}
+
+#body > ul li a{
+
+    display: block;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    line-height: 20px;
+    font-size: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #262626;
+    margin: 0 10px;
+    transition: .5;
+
+}
+
+#body > ul li a span{
+    position: absolute;
+    transition: transform .5s;
+}
+// Top and Bottom
+#body > ul li a span:nth-child(1),
+#body > ul li a span:nth-child(3)
+{
+    width: 100%;
+    height: 2px;
+    background: #262626;
+}
+
+#body > ul li a span:nth-child(1){
+    top: 0;
+    left: 0;
+    transform-origin: right;
+}
+
+#body > ul li a:hover span:nth-child(1){
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .5s;
+}
+
+
+#body > ul li a span:nth-child(3){
+    bottom: 0;
+    left: 0;
+    transform-origin: left;
+}
+
+#body > ul li a:hover span:nth-child(3){
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .5s;
+}
+
+//Left and right
+#body > ul li a span:nth-child(2),
+#body > ul li a span:nth-child(4)
+{
+    height: 100%;
+    width: 2px;
+    background: #262626;
+}
+
+#body > ul li a span:nth-child(2){
+    top: 0;
+    left: 0;
+    transform: scaleY(0);
+    transform-origin: bottom;
+}
+
+#body > ul li a:hover span:nth-child(2){
+    transform: scaleY(1);
+    transform-origin: top;
+    transition: transform .5s;
+}
+
+#body > ul li a span:nth-child(4){
+    transform: scaleY(0);
+    right: 0;
+    bottom: 0;
+    transform-origin: top;
+}
+
+#body > ul li a:hover span:nth-child(4){
+    transform: scaleY(1);
+    transform-origin: bottom;
+    transition: transform .5s;
+}
+
+#body > ul li a div{
+    padding-top: 26%;
+    padding-left: 27%;
+}
+#body > ul li a > .twitter svg:hover{
+    fill: #1DA1F2;
+}
+
+#body > ul li a > .github svg:hover{
+    fill: orange;
+}
+
+#body > ul li a > .vkontakte svg:hover{
+    fill: #45668e
+}
+
+#body > ul li a > .instagram svg:hover{
+    fill: url(#rg);
+}
+
+#body > ul li a > .telegram svg:hover{
+    fill: #0088CC
+}
+
+
+// fix svg paddings
+#body > ul li a > .vkontakte{
+    padding-top: 25%;
+}
+
+#body > ul li a > .instagram{
+    padding-left: 28%;
+    padding-top: 30%;
+}
+
+
+// Adjust for smaller screens
+@media only screen and (max-width: 500px) {
+
+    #body > ul{
+        bottom: 50%;
+        flex-direction: column;
+    }
+
+    #body > ul li a{
+        margin: 10px 0;
+    }
+    #body > ul li a span:nth-child(3),
+    #body > ul li a span:nth-child(1){
+        width: 0%;
+        height: 0%;
+    }
+
+    #header.contact{ 
+        margin-top: 5vh;
+        flex-direction: column;
+    }
+    #header.contact > #login.contact { flex-direction: column; }
+    #header.contact > #login.contact > #inner-login-div > .buttons { flex-direction: column; }
+
+    #header.contact > #login.contact  > #inner-login-div > .buttons div div span{
+        margin-right: 28px;
+    }
+
+}
+
+@media only screen and (max-width: 1500px) {
+    #body > ul{
+        bottom: 50%;
+    }
+}

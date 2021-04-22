@@ -16,7 +16,6 @@ from app.db.repositories.queries.users import *
 from app.models.users import PostUserModel
 from app.models.users import UserInDB
 
-
 # logging
 import logging
 
@@ -58,6 +57,14 @@ class UsersDBRepository(BaseRepository):
             return None
         
         return user
+
+    async def update_token(self, *, user_id: int, token: str):
+        await self.__execute_query(query=update_token_query(id=user_id, token=token))
+
+    async def get_token_from_db(self, *, user_id: int) -> str:
+        token = await self.__execute_query(query=get_token_from_db_query(id=user_id))
+
+        return token['jwt'] or None
 
     async def __execute_query(self, *, query: str):
         try:

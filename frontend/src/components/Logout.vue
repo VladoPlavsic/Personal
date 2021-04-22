@@ -1,32 +1,26 @@
 <template>
-    <div id="inner-login-div">
-    <!-- Logo -->
-        <div class="logo">
-            <router-link :to="{name: 'Home'}"> 
-            <span>VP</span>
-            </router-link>
-        </div>
-        <div class="buttons">
-            <div v-on:click="logOut()">
-                <SignButton label="Log out"/>
-            </div>
-        </div>
+    <div v-on:click="logOut()">
+        <SignButton label="Log out"/>
     </div>
 </template>
 
 <script>
-import SignButton from '@/components/buttons/SignButton'
+import SignButton from '@/components/buttons/CustomButton'
+import Logo from '@/components/Logo'
+
 
 export default {
-    name: "Login",
+    name: "LogOut",
     methods: {
         logOut() {
             this.$setCookie('loggedIn', false);
             this.$removeCookie('jwt');
+            this.$emit('re-render');
         }
     },
     components: {
-        SignButton
+        SignButton,
+        Logo
     },
 }
 </script>

@@ -1,0 +1,128 @@
+#header{
+    display: flex;
+    flex-direction: column;
+}
+
+#logo-and-login{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#logo{
+    margin-left: 10vw;
+    margin-top: 15px;
+    align-self: center;
+    min-width: 80px;
+}
+
+#sign-in {
+    margin-right: 10vw;
+    margin-top: 15px;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#sign-out{
+    margin-right: 10vw;
+    margin-top: 15px;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#sign-in-button,
+#sign-up-button{
+    font-size: 30px;
+    font-family: 'ShadowIntoLight', cursive;
+    margin-right: 20px;
+    transition: .2s;
+    box-shadow: 1px 1px 5px black;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 20px;
+}
+
+#sign-in-button:active,
+#sign-up-button:active{
+    transition: .2s;
+    box-shadow: -1px -1px 1px black;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btn {
+	display: inline-block;
+	color: black;
+    font-size: 30px;
+	min-width: 154px;
+	text-decoration: none;
+	padding: 20px;
+	position: relative;
+    cursor: pointer;
+	text-align: center;
+}
+
+.btn:hover .button-stroke:nth-child(2) {
+    stroke-dashoffset: 0;
+	stroke: black;
+}
+
+.button-stroke {
+	display: block;
+	width: calc(100% - 40px);
+	height: 20px;
+	stroke: yellow;
+	position: absolute;
+	left: 20px;
+	bottom: -10px;
+	stroke-width: 4;
+	
+}
+.button-stroke:nth-child(2) {
+    	stroke-dasharray: 650px;
+		stroke-dashoffset: 650px;
+		stroke: darken(#263238, 10%);
+		stroke-width: 5;
+		transition: stroke-dashoffset 800ms ease-out;
+}
+
+.content-picker {
+    margin-top: 15px;
+    align-self: center;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+#edit{
+    align-self: center;
+    margin-left: 5vw;
+    margin-top: 15px;
+    min-width: 30px;
+    animation: rotation 20s infinite linear;
+    max-width: 50px;
+    cursor: pointer;
+}
+
+@keyframes rotation {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 500px) {
+
+    .container{
+        flex-direction: column;
+    }  
+}

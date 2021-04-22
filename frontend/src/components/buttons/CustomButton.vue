@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="old-sign-button">
     <a href="javascript:;">
         <svg class="icon-arrow before">
             <use xlink:href="#arrow"></use>
@@ -12,7 +12,7 @@
     
     <svg style="display: none;">
       <defs>
-        <symbol id="arrow" viewBox="0 0 35 15">
+        <symbol id="arrow" viewBox="0 0 35 15" >
           <title>Arrow</title>
           <path d="M27.172 5L25 2.828 27.828 0 34.9 7.071l-7.07 7.071L25 11.314 27.314 9H0V5h27.172z "/>
         </symbol>
@@ -37,9 +37,9 @@ html, body {
 }
 
 a {
-    border: 4px solid #3F3F3F;
-    border-radius: 20px;
-    color: #3F3F3F;
+    border: 2px solid black;
+    border-radius: 10px;
+    color: black;
     display: inline-block;
     font-size: 15px;
     font-weight: bold;
@@ -48,6 +48,15 @@ a {
     padding: 12px 32px 12px 82px;
     position: relative;
     text-decoration: none;
+    box-shadow: 1px 1px 20px black;
+    transition: .2s;
+    cursor: pointer;
+}
+
+
+a:active{
+    transition: .2s;
+    box-shadow: 0px 0px 0px black;
 }
 
 a .label,
@@ -64,7 +73,7 @@ a .label {
 
 a .icon-arrow {
     position: relative;
-    fill: #3F3F3F;
+    fill: black;
     height: 15px;
     top: 13px;
     transition: transform .5s cubic-bezier(0.86, 0, 0.07, 1), opacity .4s cubic-bezier(0.86, 0, 0.07, 1);
@@ -101,12 +110,4 @@ a:hover .icon-arrow.after {
     transform: translateX(0) scaleX(1);
 }
 
-a:active {
-    border-color: #69becf;
-    color: #69becf;
-}
-
-a:active .icon-arrow {
-    fill: #69becf;
-}
 </style>

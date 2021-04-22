@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import SignButton from "@/components/buttons/SignButton.vue"
+import SignButton from "@/components/buttons/CustomButton.vue"
 import axios from 'axios'
 
 export default {
@@ -53,8 +53,8 @@ export default {
                 }
             }).then((response) => {
                 this.$setCookie('loggedIn', true);
-                this.$setCookie('jwt', response.data.jwt);
-                this.$router.push('/');
+                this.$setCookie('jwt', response.data.jwt.access_token);
+                window.location.href = '/';
 
             }).catch(function (error){
                 if(error.response){

@@ -1,21 +1,20 @@
 from typing import Optional
 
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
 
 from app.core.config import SECRET_KEY, API_PREFIX
 from app.models.users import UserInDB
-from app.api.dependencies.database import get_repository
-from app.db.repositories.users import UsersRepository
+from app.api.dependencies.database import get_database_repo
+from app.db.repositories.users import UsersDBRepository
 from app.services import auth_service
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{API_PREFIX}/users/login/token/")
 
 async def get_user_from_token(
     *, 
-    token: str = Depends(oauth2_scheme),
-    user_repo: UsersRepository = Depends(get_repository(UsersRepository)),
+    token: str,
+    user_repo: UsersDBRepository = Depends(get_database_repo(UsersDBRepository)),
     ) -> Optional[UserInDB]:
+
     try:
         username = auth_service.get_username_from_token(token=token, secret_key=str(SECRET_KEY))
         user = await user_repo.get_user_by_username(username=username)
@@ -24,12 +23,22 @@ async def get_user_from_token(
         # check if token is blocked and return Auth error if blocked
         true_token = await user_repo.get_token_from_db(user_id=user.id)
         if true_token != token:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token blocked. Another session started. Login required.")
-        
+            raise HTTPException(status_code=401, detail="Token blocked. Another session started. Login required.")
+
+    except HTTPException as http:
+        raise HTTPException(status_code=401, detail=f"{http.detail}")
+
     except Exception as e:
-        raise e
+        raise HTTPException(status_code=400, detail=f"{e.detail}")
 
     return user
+
+async def is_superuser(
+    *, 
+    user: UserInDB = Depends(get_user_from_token),
+    ) -> Optional[UserInDB]:
+
+    return user.is_superuser
 
 def get_current_active_user(current_user: UserInDB = Depends(get_user_from_token)) -> Optional[UserInDB]:
     if not current_user:

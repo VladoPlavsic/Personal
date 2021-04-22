@@ -6,6 +6,8 @@ from app.db.repositories.users import UsersDBRepository
 
 from app.services import auth_service
 
+from app.api.dependencies.auth import is_superuser
+
 # request models
 from app.models.users import PostUserModel
 from app.models.users import PostUserLoginModel
@@ -42,7 +44,18 @@ async def login(
     access_token = AccessToken(access_token=auth_service.create_access_token_for_user(user=user), token_type="bearer")
 
     # TODO: Blacklist old token and add new
-    # await user_repo.update_token(user_id=user.id, token=access_token.access_token)
+    await user_db_repo.update_token(user_id=user.id, token=access_token.access_token)
+
     user.jwt = access_token
 
     return PublicUserInDB(**user.dict())
+
+
+@router.get("/admin/check")
+async def check_if_admin(
+    is_superuser = Depends(is_superuser),
+    ):
+
+    return is_superuser    
+
+

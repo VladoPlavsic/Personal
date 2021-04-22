@@ -1,3 +1,13 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 @font-face {
     font-family: "ShadowsIntoLight";
     font-display: swap;
@@ -9,7 +19,6 @@
     font-weight: 200;
     font-style: normal;
 }
-
 
 
 /* remove all default styles from a tag (including router-link tag)*/

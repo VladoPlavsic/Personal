@@ -1,47 +1,39 @@
 <template>
-    <div id="header" class="home">
-        <!-- first row -->
-        <div id="login" class="home">
-            <Login v-if="$cookies.loggedIn === 'false'"/>
-            <Logout v-if="$cookies.loggedIn === 'true'"/>
-        </div>
-        <!-- second row -->
-        <div id="content-picker">
-            <div class="item">
-                <router-link :to="{name: 'About'}">
-                    About
-                </router-link>
-            </div>
-            <div class="item">
-                <router-link :to="{name: 'Articles'}">
-                    Articles
-                </router-link>
-            </div>
-            <div class="item">
-                <router-link :to="{name: 'Contact'}">
-                    Contact
-                </router-link>
-            </div>
-        </div>
+<div id="home">
+    <Header v-on="$listeners" firstSelect="About" secondSelect="Contact" thirdSelect="Articles"/>
+    <div class="body">
+      
     </div>
+</div>
 </template>
 
 <script>
-import Login from '@/components/Login'
-import Logout from '@/components/Logout'
+import Header from '@/components/Header'
 
 import axios from 'axios'
 
 export default {
   name: 'Home',
-  methods:{
-      log() {
-          console.log("press")
-      }
-  },
   components:{
-      Login,
-      Logout
+      Header,   
     }
 }
 </script>
+
+<style scoped>
+
+#home{
+    display: flex;
+    flex-direction: column;
+}
+
+.body{
+    text-align: center;
+    margin-top: 80px;
+    align-self: center;
+    min-height: 50vh;
+    min-width: 50vw;
+    border: 2px solid black;
+}
+
+</style>
