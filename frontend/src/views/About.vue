@@ -1,6 +1,7 @@
 <template>
 <div id="about">
-    <Header v-on="$listeners" firstSelect="Home" secondSelect="Contact" thirdSelect="Articles"/>
+    <Header v-on="$listeners" firstSelect="Home" secondSelect="Contact" thirdSelect="Articles" firstSelectHref="home" secondSelectHref="contact" thirdSelectHref="articles"/>
+    
     <div class="body">
         <div class="card" v-for="card in cards" :key="card">
             <div class="card-front"><img :src="card.image_url" /></div>
@@ -23,11 +24,6 @@ import axios from 'axios'
 
 export default {
   name: 'About',
-  methods:{
-      log() {
-          console.log("press")
-      }
-  },
   data() {
       return {
         cards: []
@@ -35,10 +31,14 @@ export default {
   },
   beforeCreate()
   {
-        axios.get("http://localhost:8000/api/public/get/about").then((response) => {
+        axios.get(process.env.VUE_APP_REST_API_IP + "/api/public/get/about").then((response) => {
             this.cards = response.data;
-            console.log(this.cards);
         });
+  },
+  methods:{
+      log() {
+          console.log("press")
+      }
   },
   components:{
       Header

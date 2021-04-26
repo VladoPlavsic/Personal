@@ -9,9 +9,6 @@ import About from '../views/About'
 import Contact from '../views/Contact'
 import Articles from '../views/Articles'
 
-import Settings from '../views/Settings'
-
-
 Vue.use(Router)
 
 export default new Router({
@@ -51,11 +48,6 @@ export default new Router({
       path: '/articles',
       name: 'Articles',
       component: Articles
-    },
-    {
-      path: '/settings',
-      name: 'Settings',
-      component: Settings
     },
   ]
 })

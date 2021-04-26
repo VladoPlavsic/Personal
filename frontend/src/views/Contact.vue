@@ -1,6 +1,7 @@
 <template>
 <div id="home">
-    <Header v-on="$listeners" firstSelect="Home" secondSelect="About" thirdSelect="Articles"/>
+    <Header v-on="$listeners" firstSelect="Home" secondSelect="About" thirdSelect="Articles" firstSelectHref="home" secondSelectHref="about" thirdSelectHref="articles"/>
+
     <div id="body">
           <!-- Instagram color gradient -->
         <svg width="0" height="0">

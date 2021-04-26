@@ -145,9 +145,7 @@ class BaseCloudRepository:
         """
 
         response = self.client.delete_objects(Bucket=BUCKET, Delete={'Objects': list_of_keys})
-        self.__KEYS = [key for key in self.__KEYS if key not in list_of_keys]
 
-        return response
 
     def filter_object_keys(self, *, prefix, list_of_keys=None):
         '''

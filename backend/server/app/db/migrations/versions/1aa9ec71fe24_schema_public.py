@@ -25,7 +25,63 @@ def create_public_tables() -> None:
         schema="public"
     )
 
-def create_public_functions() -> None:
+    op.create_table(
+        "home",
+        sa.Column("id", sa.Integer, primary_key=True),
+        sa.Column("image_key", sa.Text, nullable=False),
+        sa.Column("image_url", sa.Text, nullable=False),
+    )
+
+def create_public_home_functions() -> None:
+    # insert home
+    op.execute("""
+    CREATE OR REPLACE FUNCTION public.insert_home(i_image_key TEXT, i_image_url TEXT)
+    RETURNS TABLE (id INT, image_key TEXT, image_url TEXT)
+    AS $$
+    DECLARE
+        inserted_id INT;
+    BEGIN
+        INSERT INTO public.home (image_key, image_url) VALUES (i_image_key, i_image_url) RETURNING public.home.id INTO inserted_id;
+        RETURN QUERY (SELECT * FROM public.home WHERE public.home.id = inserted_id);
+    END $$ LANGUAGE plpgsql;
+    """)
+    # update home
+    op.execute("""
+    CREATE OR REPLACE FUNCTION public.update_home(i_image_key TEXT, i_image_url TEXT, i_id INT)
+    RETURNS TABLE (id INT, image_key TEXT, image_url TEXT)
+    AS $$
+    BEGIN
+        UPDATE public.home SET
+            image_key = i_image_key,
+            image_url = i_image_url
+        WHERE public.home.id = i_id;
+        RETURN QUERY (SELECT * FROM public.home WHERE public.home.id = i_id);
+    END $$ LANGUAGE plpgsql;
+    """)
+    # select home
+    op.execute("""
+    CREATE OR REPLACE FUNCTION public.get_home()
+    RETURNS TABLE (id INT, image_key TEXT, image_url TEXT)
+    AS $$
+    BEGIN
+        RETURN QUERY (SELECT * FROM public.home);
+    END $$ LANGUAGE plpgsql;
+    """)
+    # delete home
+    op.execute("""
+    CREATE OR REPLACE FUNCTION public.delete_home(i_id INT)
+    RETURNS TEXT
+    AS $$
+    DECLARE 
+        deleted_key TEXT;
+    BEGIN
+        SELECT image_key INTO deleted_key FROM public.home WHERE id = i_id;
+        DELETE FROM public.home WHERE id = i_id;
+        RETURN deleted_key;
+    END $$ LANGUAGE plpgsql;
+    """)
+
+def create_public_about_functions() -> None:
     # insert about
     op.execute("""
     CREATE OR REPLACE FUNCTION public.insert_about(i_order INT, i_image_key TEXT, i_image_url TEXT, i_title TEXT, i_body TEXT)
@@ -66,15 +122,20 @@ def create_public_functions() -> None:
     # delete about
     op.execute("""
     CREATE OR REPLACE FUNCTION public.delete_about(i_order INT)
-    RETURNS VOID
+    RETURNS TEXT
     AS $$
+    DECLARE
+        deleted_key TEXT;
     BEGIN
+        SELECT image_key INTO deleted_key FROM public.about WHERE "order" = i_order;
         DELETE FROM public.about WHERE "order" = i_order;
+        RETURN deleted_key;
     END $$ LANGUAGE plpgsql;
     """)
 
 
 def drop_public_tables() -> None:
+    op.execute("DROP TABLE public.home")
     op.execute("DROP TABLE public.about")
 
 
@@ -84,6 +145,10 @@ def drop_public_functions() -> None:
         'get_about',
         'update_about',
         'delete_about',
+        'insert_home',
+        'get_home',
+        'update_home',
+        'delete_home',
     ]
 
     for function in functions:
@@ -91,7 +156,8 @@ def drop_public_functions() -> None:
 
 def upgrade() -> None:
     create_public_tables()
-    create_public_functions()
+    create_public_home_functions()
+    create_public_about_functions()
 
 def downgrade() -> None:
     drop_public_tables()

@@ -59,7 +59,7 @@ export default {
             }
 
 
-            axios.post("http://localhost:8000/api/authentication/register", 
+            axios.post(process.env.VUE_APP_REST_API_IP + "/api/authentication/register", 
             {
                 new_user: 
                 {

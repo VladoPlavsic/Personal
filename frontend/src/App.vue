@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view @re-render="reRender"></router-view>
+    <router-view @re-render="reRender" @enable-edit="enableEdit"></router-view>
   </div>
 </template>
 
@@ -20,17 +20,26 @@ import axios from 'axios'
 export default {
   name: 'app',
   data: () => ({
-      admin: false
+      admin: false,
+      edit: false,
   }),
   methods:
   {
   reRender() {
       this.admin = false;
-  }
+  },
+  enableEdit(){
+    if (this.admin){
+      this.edit = !this.edit;
+    }
+    else{
+      this.edit = false;
+    }
+  },
   },
   beforeCreate: function() {
     if (this.$cookies.loggedIn === "true"){
-      axios.get("http://localhost:8000/api/authentication/admin/check?token=" + this.$cookies.jwt).then((response) => {
+      axios.get(process.env.VUE_APP_REST_API_IP + "/api/authentication/admin/check?token=" + this.$cookies.jwt).then((response) => {
           this.admin = response.data;
       }).catch((error) => {
           if(error.response){

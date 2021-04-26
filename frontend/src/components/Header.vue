@@ -17,7 +17,7 @@
             </div>
         </div>
         <div id="edit" v-if="this.$parent.$parent.admin">
-            <a href="/Settings">
+            <a v-on:click="emitEdit">
             <svg  viewBox="0 0 368 368">
                 <path d="M344,144h-29.952c-2.512-8.2-5.8-16.12-9.792-23.664l21.16-21.16c4.528-4.528,7.024-10.56,7.024-16.984
                 c0-6.416-2.496-12.448-7.024-16.976l-22.64-22.64c-9.048-9.048-24.888-9.072-33.952,0l-21.16,21.16
@@ -60,7 +60,7 @@
         </svg>
 
         <div class="container">
-            <a class="btn" :href="firstSelect">{{firstSelect}}
+            <a class="btn" :href="firstSelectHref">{{firstSelect}}
                 <svg class="button-stroke" viewBox="0 0 154 13">
                     <use href="#line"></use>
                 </svg>
@@ -68,7 +68,7 @@
                     <use href="#line"></use>
                 </svg>
             </a>
-            <a class="btn" :href="secondSelect">{{secondSelect}}
+            <a class="btn" :href="secondSelectHref">{{secondSelect}}
                 <svg class="button-stroke" viewBox="0 0 154 13">
                     <use href="#line"></use>
                 </svg>
@@ -76,7 +76,7 @@
                     <use href="#line"></use>
                 </svg>
             </a>
-            <a class="btn" :href="thirdSelect">{{thirdSelect}}
+            <a class="btn" :href="thirdSelectHref">{{thirdSelect}}
                 <svg class="button-stroke" viewBox="0 0 154 13">
                     <use href="#line"></use>
                 </svg>
@@ -103,7 +103,15 @@ export default {
   props: [
       'firstSelect', 
       'secondSelect', 
-      'thirdSelect'],
+      'thirdSelect',
+      'firstSelectHref', 
+      'secondSelectHref', 
+      'thirdSelectHref',],
+    methods:{
+        emitEdit() {
+            this.$emit('enable-edit');
+        }
+    }
 }
 </script>
 

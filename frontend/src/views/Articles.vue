@@ -1,6 +1,7 @@
 <template>
 <div id="articles">
-    <Header v-on="$listeners" firstSelect="Home" secondSelect="Contact" thirdSelect="About"/>
+    <Header v-on="$listeners" firstSelect="Home" secondSelect="Contact" thirdSelect="About" firstSelectHref="home" secondSelectHref="contact" thirdSelectHref="about"/>
+    
     <div  v-if="$cookies.loggedIn === 'true'" class="body">
         Access Allowed
     </div>
