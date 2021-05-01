@@ -104,14 +104,23 @@
 }
 
 
-#edit{
+#editActive{
     align-self: center;
     margin-left: 5vw;
     margin-top: 15px;
     min-width: 30px;
-    animation: rotation 20s infinite linear;
     max-width: 50px;
     cursor: pointer;
+}
+
+#editInactive{
+    align-self: center;
+    margin-left: 5vw;
+    margin-top: 15px;
+    min-width: 30px;
+    max-width: 50px;
+    cursor: pointer;
+    animation: rotation 20s infinite linear;
 }
 
 @keyframes rotation {
@@ -124,5 +133,22 @@
 
     .container{
         flex-direction: column;
-    }  
+    }
+
+    #logo-and-login{
+        flex-direction: column;
+    }
+
+    #logo{
+        margin-left: 0;
+    }
+
+    #edit{
+        margin-left: 0;
+    }
+
+    #sign-out{
+        margin-right: 0;
+    }
+
 }

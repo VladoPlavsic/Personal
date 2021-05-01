@@ -1,6 +1,7 @@
 from typing import Optional
 
 from fastapi import Depends, HTTPException, status
+from starlette.status import HTTP_401_UNAUTHORIZED
 
 from app.core.config import SECRET_KEY, API_PREFIX
 from app.models.users import UserInDB
@@ -36,9 +37,19 @@ async def get_user_from_token(
 async def is_superuser(
     *, 
     user: UserInDB = Depends(get_user_from_token),
-    ) -> Optional[UserInDB]:
+    ) -> bool:
 
     return user.is_superuser
+
+async def block_not_super(
+    *,
+    is_super: bool = Depends(is_superuser),
+) -> bool:
+
+    if not is_super:
+        raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail="Not superuser!")
+
+    return True
 
 def get_current_active_user(current_user: UserInDB = Depends(get_user_from_token)) -> Optional[UserInDB]:
     if not current_user:

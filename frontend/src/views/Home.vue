@@ -21,8 +21,9 @@
 import Header from '@/components/Header'
 
 import axios from 'axios'
-import EasyYandexS3 from 'easy-yandex-s3'
 import swal from 'sweetalert'
+
+import { getCloudClient } from '../scripts/cloudHandlers'
 
 export default {
   name: 'Home',
@@ -58,19 +59,13 @@ beforeCreate()
                 return;
             }
 
-            var s3 = new EasyYandexS3({
-                auth:{
-                    accessKeyId: process.env.VUE_APP_ACCESS_KEY_ID,
-                    secretAccessKey: process.env.VUE_APP_SECRET_ACCESS_KEY,
-                },
-                Bucket: 'vlado',
-            })
+            var s3 = getCloudClient()
 
             s3.Upload({
                 buffer: fileBuffer,
                 name: fileBuffer.name,
             }, '/home/').then((response) => {
-                axios.post(process.env.VUE_APP_REST_API_IP + "/api/public/create/home", {
+                axios.post(process.env.VUE_APP_REST_API_IP + "/api/public/create/home?token=" + this.$cookies.jwt, {
                     new_home: {
                         image_key: response.key
                     }
@@ -92,19 +87,13 @@ beforeCreate()
                 return;
             }
 
-            var s3 = new EasyYandexS3({
-                auth:{
-                    accessKeyId: process.env.VUE_APP_ACCESS_KEY_ID,
-                    secretAccessKey: process.env.VUE_APP_SECRET_ACCESS_KEY,
-                },
-                Bucket: 'vlado',
-            })
+            var s3 = getCloudClient()
 
             s3.Upload({
                 buffer: fileBuffer,
                 name: fileBuffer.name,
             }, '/home/').then((response) => {
-                axios.put(process.env.VUE_APP_REST_API_IP + "/api/public/update/home", {
+                axios.put(process.env.VUE_APP_REST_API_IP + "/api/public/update/home?token=" + this.$cookies.jwt, {
                     updated_home: {
                         id: this.homeImageId,
                         old_key: this.homeImageKey,
@@ -121,7 +110,7 @@ beforeCreate()
             })
       },
       deleteHomeImage(){
-          axios.delete(process.env.VUE_APP_REST_API_IP + "/api/public/delete/home?id=" + this.homeImageId
+          axios.delete(process.env.VUE_APP_REST_API_IP + "/api/public/delete/home?id=" + this.homeImageId + "&token=" + this.$cookies.jwt
           ).then((response) => {
             axios.get(process.env.VUE_APP_REST_API_IP + "/api/public/get/home").then((response) => {
                 var image = response.data[Math.floor(Math.random() * response.data.length)];

@@ -7,6 +7,9 @@ from app.db.repositories.public import PublicDBRepository
 from app.api.dependencies.cloud import get_cloud_repository
 from app.cloud.base import BaseCloudRepository
 
+from app.api.dependencies.auth import block_not_super
+
+from app.models.users import UserInDB
 
 # post models
 from app.models.public import HomeCreateModel
@@ -27,6 +30,7 @@ router = APIRouter()
 # ###
 @router.post("/create/home")
 async def create_home(
+    is_superuser: bool = Depends(block_not_super),
     new_home: HomeCreateModel = Body(..., embed=True),
     public_db_repo: PublicDBRepository = Depends(get_database_repo(PublicDBRepository)),
     cloud_repo: BaseCloudRepository = Depends(get_cloud_repository(BaseCloudRepository)),
@@ -49,6 +53,7 @@ async def get_home(
 
 @router.put("/update/home")
 async def update_home(
+    is_superuser: bool = Depends(block_not_super),
     updated_home: HomeUpdateModel = Body(..., embed=True),
     public_db_repo: PublicDBRepository = Depends(get_database_repo(PublicDBRepository)),
     cloud_repo: BaseCloudRepository = Depends(get_cloud_repository(BaseCloudRepository)),
@@ -69,6 +74,7 @@ async def update_home(
 @router.delete("/delete/home")
 async def delete_home(
     id: int,
+    is_superuser: bool = Depends(block_not_super),
     public_db_repo: PublicDBRepository = Depends(get_database_repo(PublicDBRepository)),
     cloud_repo: BaseCloudRepository = Depends(get_cloud_repository(BaseCloudRepository)),    
 ) -> None:
@@ -82,6 +88,7 @@ async def delete_home(
 # ###
 @router.post("/create/about")
 async def create_about(
+    is_superuser: bool = Depends(block_not_super),
     new_about: AboutCreateModel = Body(..., embed=True),
     cloud_repo: BaseCloudRepository = Depends(get_cloud_repository(BaseCloudRepository)),
     public_db_repo: PublicDBRepository = Depends(get_database_repo(PublicDBRepository)),
@@ -104,6 +111,7 @@ async def get_about(
 
 @router.put("/update/about")
 async def update_about(
+    is_superuser: bool = Depends(block_not_super),
     updated_about: AboutUpdateModel = Body(..., embed=True),
     cloud_repo: BaseCloudRepository = Depends(get_cloud_repository(BaseCloudRepository)),
     public_db_repo: PublicDBRepository = Depends(get_database_repo(PublicDBRepository)),
@@ -115,12 +123,20 @@ async def update_about(
 
     response = await public_db_repo.update_about(about=updated_about)
 
+    if updated_about.image_url and response:
+        if updated_about.old_key != updated_about.image_key:
+            cloud_repo.delete_keys(list_of_keys=[{"Key": updated_about.old_key}])
+
     return response
 
 @router.delete("/delete/about")
 async def delete_about(
     order: int,
+    is_superuser: bool = Depends(block_not_super),
     public_db_repo: PublicDBRepository = Depends(get_database_repo(PublicDBRepository)),
+    cloud_repo: BaseCloudRepository = Depends(get_cloud_repository(BaseCloudRepository)),
 ) -> None:
 
-    await public_db_repo.delete_about(order=order)
+    deleted = await public_db_repo.delete_about(order=order)
+
+    cloud_repo.delete_keys(list_of_keys=[{"Key": deleted}])

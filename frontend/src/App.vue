@@ -13,7 +13,6 @@
 @import "assets/scss/form.scss";
 </style>
 
-
 <script>
 import axios from 'axios'
 
@@ -51,6 +50,7 @@ export default {
           }
      });
     }else{
+      this.$setCookie('loggedIn', false);
       this.admin = false;
     }
   }

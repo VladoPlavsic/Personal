@@ -7,6 +7,8 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^27.1.0",
+    "@ckeditor/ckeditor5-vue2": "^1.0.5",
     "axios": "^0.21.1",
     "easy-yandex-s3": "^1.1.6",
     "register-service-worker": "^1.7.1",

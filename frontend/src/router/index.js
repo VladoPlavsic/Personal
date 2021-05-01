@@ -9,6 +9,8 @@ import About from '../views/About'
 import Contact from '../views/Contact'
 import Articles from '../views/Articles'
 
+import ArticleTemplate from '../views/ArticleTemplate'
+
 Vue.use(Router)
 
 export default new Router({
@@ -49,5 +51,10 @@ export default new Router({
       name: 'Articles',
       component: Articles
     },
+    {
+      path: '/articles/:name',
+      name: 'ArticleTemplate',
+      component: ArticleTemplate,
+    }
   ]
 })

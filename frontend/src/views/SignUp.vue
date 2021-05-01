@@ -16,6 +16,13 @@
              title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
       <label>Password</label>
     </div>
+     <div class="inputBox">
+      <input id="sign-up-password-repeat" type="password" name="password" required value=""
+             onkeyup="this.setAttribute('value', this.value);"
+             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+      <label>Repeat password</label>
+    </div>
     <div id="sign-in-div" v-on:click="signUp()" >
         <SignButton label='SignUp'/>
     </div>
@@ -27,6 +34,7 @@ import SignButton from "@/components/buttons/CustomButton.vue"
 import axios from 'axios'
 
 import swal from 'sweetalert'
+import { raiseSuccess, raiseError } from '../scripts/allertHandlers'
 
 export default {
     name: 'SignUp',
@@ -36,28 +44,24 @@ export default {
             var email = document.getElementById("sign-up-email").value;
             var username = document.getElementById("sign-up-username").value;
             var password = document.getElementById("sign-up-password").value;
-            var header = document.getElementById('sign-in-header');
+            var repeatedPassword = document.getElementById("sign-up-password-repeat").value;
 
             if (!email.match(email_regex)){
-                header.style.color = "red"
-                header.innerText = "Invalid email";
+                raiseError("Invalid email")
                 return;
             }
             else if (username.length  < 5 || username.length > 15) {
-                header.style.color = "red"
-                header.innerText = "Invalid username";
+                raiseError("Invalid username")
+                return;
+            }
+            else if(password != repeatedPassword){
+                raiseError("Passwords do not match!")
                 return;
             }
             else if (password.length  < 5) {
-                header.style.color = "red"
-                header.innerText = "Password to short";   
+                raiseError("Password to short")
                 return;
             }
-            else{
-                header.style.color = "black"
-                header.innerText = "Sign up";
-            }
-
 
             axios.post(process.env.VUE_APP_REST_API_IP + "/api/authentication/register", 
             {
@@ -69,11 +73,7 @@ export default {
                 }
             }).then(function (response){
 
-                swal({
-                    title: "Success!",
-                    text: "Congrats! You've become a member of most useles site in site history!",
-                    icon: "success",
-                }).then(() => { 
+                raiseSuccess("Congrats! You've become a member of most useles site in site history!").then(() => { 
                     window.location.href = '/';
                 });
 
@@ -81,15 +81,12 @@ export default {
                 if(error.response){
                     // Request made and server responsed
                     if (error.response.status === 409){
-                        header.style.color = "red"
-                        header.innerText = error.response.data.detail;   
+                        raiseError(error.response.data.detail);
                     }
                 } else if (error.request){
                     // Request mad no server response received
-                    console.log(error.request);
                 } else{
                     // Unhandled error
-                    console.log('Error', error.message);
                 }
             });
         }

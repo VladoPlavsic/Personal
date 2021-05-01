@@ -44,7 +44,7 @@ export default {
             }
 
 
-            axios.post(process.env.VUE_APP_REST_API_IP + "api/authentication/login", 
+            axios.post(process.env.VUE_APP_REST_API_IP + "/api/authentication/login", 
             {
                 user: 
                 {

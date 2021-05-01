@@ -41,6 +41,8 @@ def run_migrations_online() -> None:
     with default_engine.connect() as default_conn:
         default_conn.execute("CREATE SCHEMA IF NOT EXISTS public")
         default_conn.execute("CREATE SCHEMA IF NOT EXISTS users")
+        default_conn.execute("CREATE SCHEMA IF NOT EXISTS articles")
+
 
 
     connectable = config.attributes.get("connection", None)

@@ -10,13 +10,13 @@
                     Sign in
                 </a>
             </div>
-            <div id="sign-up-button">
+            <div id="sign-up-button"> 
                 <a href="/sign/up">
                     Sign up
                 </a>
             </div>
         </div>
-        <div id="edit" v-if="this.$parent.$parent.admin">
+        <div v-if="$parent.$parent.admin" :id="$parent.$parent.edit ? 'editInactive' : 'editActive'">
             <a v-on:click="emitEdit">
             <svg  viewBox="0 0 368 368">
                 <path d="M344,144h-29.952c-2.512-8.2-5.8-16.12-9.792-23.664l21.16-21.16c4.528-4.528,7.024-10.56,7.024-16.984
@@ -116,6 +116,5 @@ export default {
 </script>
 
 <style scoped>
-
 
 </style>

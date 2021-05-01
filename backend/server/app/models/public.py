@@ -34,6 +34,7 @@ class AboutCreateModel(AboutCoreModel):
 class AboutUpdateModel(AboutCoreModel):
     title: Optional[str]
     body: Optional[str]
+    old_key: str
 
 class AboutInDBModel(AboutCoreModel):
     title: str
