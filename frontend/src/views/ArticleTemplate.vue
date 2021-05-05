@@ -23,7 +23,7 @@
                 <div id="center">
                     <div id="article" v-if="!$parent.edit">
                         <div id="articleTitle">
-                            <h2>{{articleData.name}}</h2>
+                            <h2 v-html="articleData.name">{{articleData.name}}</h2>
                         </div>
                         <div v-html="articleData.content" id="articleBody">
                         </div>
@@ -69,8 +69,8 @@
         </div>
         <div  v-if="$cookies.loggedIn === 'false'" class="body">
             <div id="body">
-                <div id="center">
-                    Access denied!
+                <div id="accessDenied">
+                    <a href="/sign/in">Access denied!</a>
                 </div>
             </div>
         </div>
@@ -79,10 +79,38 @@
 
 <script>
 import Header from '@/components/Header'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+//import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import axios from 'axios'
 import { raiseError, raiseAllertDelete } from '../scripts/allertHandlers'
+
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor.js';
+import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment.js';
+import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat.js';
+import Autolink from '@ckeditor/ckeditor5-link/src/autolink.js';
+import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote.js';
+import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
+import CKFinderUploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js';
+import CloudServices from '@ckeditor/ckeditor5-cloud-services/src/cloudservices.js';
+import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials.js';
+import FontColor from '@ckeditor/ckeditor5-font/src/fontcolor.js';
+import FontFamily from '@ckeditor/ckeditor5-font/src/fontfamily.js';
+import FontSize from '@ckeditor/ckeditor5-font/src/fontsize.js';
+import Heading from '@ckeditor/ckeditor5-heading/src/heading.js';
+import Indent from '@ckeditor/ckeditor5-indent/src/indent.js';
+import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic.js';
+import Link from '@ckeditor/ckeditor5-link/src/link.js';
+import List from '@ckeditor/ckeditor5-list/src/list.js';
+import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed.js';
+import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
+import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
+import Table from '@ckeditor/ckeditor5-table/src/table.js';
+import TableCellProperties from '@ckeditor/ckeditor5-table/src/tablecellproperties';
+import TableProperties from '@ckeditor/ckeditor5-table/src/tableproperties';
+import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar.js';
+import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation.js';
+import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
+import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock.js'
 
 export default {
     name: 'ArticleTemplate',
@@ -96,8 +124,74 @@ export default {
                 id: -1,
             },
             editorConfig: {
-                
-               
+                plugins: [
+                        Alignment,
+                        Autoformat,
+                        Autolink,
+                        BlockQuote,
+                        Bold,
+                        CKFinderUploadAdapter,
+                        CloudServices,
+                        Essentials,
+                        FontColor,
+                        FontFamily,
+                        FontSize,
+                        Heading,
+                        Indent,
+                        Italic,
+                        Link,
+                        List,
+                        MediaEmbed,
+                        Paragraph,
+                        PasteFromOffice,
+                        Table,
+                        TableCellProperties,
+                        TableProperties,
+                        TableToolbar,
+                        TextTransformation,
+                        Underline,
+                        CodeBlock,
+                    ],
+
+                    toolbar: {
+                        items: [
+                               "heading",
+                                "|",
+                                "bold",
+                                "italic",
+                                "link",
+                                "bulletedList",
+                                "numberedList",
+                                "|",
+                                "outdent",
+                                "indent",
+                                "codeBlock",
+                                "|",
+                                "blockQuote",
+                                "insertTable",
+                                "mediaEmbed",
+                                "undo",
+                                "redo",
+                                "alignment",
+                                "underline",
+                                "fontColor",
+                                "fontSize",
+                                "fontFamily",
+
+                        ]
+                    },
+                    image: {
+                        toolbar: ["imageTextAlternative", "imageStyle:full", "imageStyle:side"],
+                    },
+                    table: {
+                        contentToolbar: [
+                        "tableColumn",
+                        "tableRow",
+                        "mergeTableCells",
+                        "tableCellProperties",
+                        "table"
+                        ]
+                    }
             },
             subgroupId: -1,
             articleData:{},
@@ -252,6 +346,12 @@ export default {
 
 
 <style scoped>
+#accessDenied{
+    position: absolute;
+    right: 47vw;
+    bottom: 48vh;
+}
+
 #body{
     margin-left: 10px;
     margin-right: 10px;
@@ -275,6 +375,7 @@ export default {
 #article{
     padding-bottom: 10px;
     border-bottom: 2px solid black;
+    margin-bottom: 20px;
 }
 
 #articleEditing{
@@ -374,10 +475,12 @@ export default {
 
     #body{
         flex-direction: column;
+        flex-wrap: wrap;
     }
 
     #center{
         margin-top: 20px;
+        flex-wrap: wrap;
         border-top: 1px solid black;
     }
 

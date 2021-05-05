@@ -36,7 +36,7 @@
     </div>
     <div  v-if="$cookies.loggedIn === 'false'" class="body">
         <div id="centeredText">
-          Access denied!
+          <a href="/sign/in"> Access denied!</a>
         </div>
     </div>
 </div>

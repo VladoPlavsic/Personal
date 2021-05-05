@@ -74,9 +74,9 @@ class PublicDBRepository(BaseRepository):
                         await self.db.fetch_one(query=query)
 
         except Exception as e:
-            logger.error("--- ERROR RAISED TRYING TO EXECUTE QUERY ---")
+            logger.error("--- ERROR RAISED TRYING TO EXECUTE QUERY PUBLIC ---")
             logger.error(e)
-            logger.error("--- ERROR RAISED TRYING TO EXECUTE QUERY ---")
+            logger.error("--- ERROR RAISED TRYING TO EXECUTE QUERY PUBLIC ---")
             raise HTTPException(status_code=400, detail=f"ERROR RAISED TRYING TO EXECUTE QUERY: {e}")
 
         return response

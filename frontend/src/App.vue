@@ -6,11 +6,10 @@
 
 <style lang="scss">
 @import "assets/css/main.css";
-
 @import "assets/scss/contact.scss";
-
 @import "assets/scss/header.scss";
 @import "assets/scss/form.scss";
+
 </style>
 
 <script>
