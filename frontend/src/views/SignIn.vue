@@ -54,7 +54,7 @@ export default {
             }).then((response) => {
                 this.$setCookie('loggedIn', true);
                 this.$setCookie('jwt', response.data.jwt.access_token);
-                window.location.href = '/';
+                window.location.href = process.env.NODE_ENV === 'production' ? process.env.VUE_APP_APACHE_SERVER_FOLDER : '/';
 
             }).catch(function (error){
                 if(error.response){

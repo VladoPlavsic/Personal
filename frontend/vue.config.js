@@ -24,6 +24,9 @@ module.exports = {
         ]
     },
 
+    publicPath: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_APACHE_SERVER_FOLDER : '/',
+
+
     // Vue CLI would normally use its own loader to load .svg and .css files, however:
     //	1. The icons used by CKEditor must be loaded using raw-loader,
     //	2. The CSS used by CKEditor must be transpiled using PostCSS to load properly.

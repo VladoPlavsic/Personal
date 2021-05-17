@@ -6,12 +6,12 @@
         </div>
         <div v-if="$cookies.loggedIn === 'false'" id="sign-in">
             <div id="sign-in-button">
-                <a href="/sign/in">
+                <a href="sign/in">
                     Sign in
                 </a>
             </div>
             <div id="sign-up-button"> 
-                <a href="/sign/up">
+                <a href="sign/up">
                     Sign up
                 </a>
             </div>

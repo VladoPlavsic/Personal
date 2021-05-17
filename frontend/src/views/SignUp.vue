@@ -74,7 +74,7 @@ export default {
             }).then(function (response){
 
                 raiseSuccess("Congrats! You've become a member of most useles site in site history!").then(() => { 
-                    window.location.href = '/';
+                    window.location.href = process.env.NODE_ENV === 'production' ? process.env.VUE_APP_APACHE_SERVER_FOLDER : '/';
                 });
 
             }).catch(function (error){
