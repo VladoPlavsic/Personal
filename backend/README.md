@@ -10,5 +10,5 @@ For server side we used uvicorn.
 ```
 
 ```
-3. run following command: compose up --build
+3. run following command: docker-compose up --build
 ```
